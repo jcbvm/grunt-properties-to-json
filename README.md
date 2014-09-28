@@ -1,4 +1,4 @@
-# grunt-properties-to-json
+# grunt-properties-to-json [![Build Status](https://travis-ci.org/jcbvm/grunt-properties-to-json.svg?branch=master)](https://travis-ci.org/jcbvm/grunt-properties-to-json) [![devDependency Status](https://david-dm.org/jcbvm/grunt-properties-to-json/dev-status.svg)](https://david-dm.org/jcbvm/grunt-properties-to-json#info=devDependencies)
 
 A grunt plugin for converting java property files to JSON files.
 
