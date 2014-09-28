@@ -41,17 +41,13 @@ grunt.initConfig({
             files: [{
                 src: ['path/to/properties/files', 'another/path/to/properties/files'],
                 dest: 'tmp'
-            }],
-            options: {
-                encoding: 'utf8'
-            }
+            }]
         }
     }
 });
 ```
 
 The generated json files will be put in the given destination folder.
-Optionally you can define the encoding which will be used when reading the properties files, default is 'utf8'.
 
 ## License
 
