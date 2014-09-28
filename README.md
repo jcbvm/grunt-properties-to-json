@@ -18,7 +18,7 @@ grunt.loadNpmTasks('grunt-properties-to-json');
 
 ## Usage
 
-### Basic
+With the following config, each `.properties` file in src will be converted to json and will be saved as a `.json` file in the same directory as the property file.
 
 ```js
 grunt.initConfig({
@@ -30,9 +30,7 @@ grunt.initConfig({
 });
 ```
 
-The generated json files will be put in the same directory as the source.
-
-### Advanced
+It is also possible to define a destination folder for the generated json files:
 
 ```js
 grunt.initConfig({
@@ -46,8 +44,6 @@ grunt.initConfig({
     }
 });
 ```
-
-The generated json files will be put in the given destination folder.
 
 ## License
 
