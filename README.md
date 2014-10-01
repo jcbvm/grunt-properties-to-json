@@ -1,4 +1,5 @@
-# grunt-properties-to-json [![Build Status](https://travis-ci.org/jcbvm/grunt-properties-to-json.svg?branch=master)](https://travis-ci.org/jcbvm/grunt-properties-to-json) [![dependency Status](https://david-dm.org/jcbvm/grunt-properties-to-json/status.svg)](https://david-dm.org/jcbvm/grunt-properties-to-json#info=dependencies) [![devDependency Status](https://david-dm.org/jcbvm/grunt-properties-to-json/dev-status.svg)](https://david-dm.org/jcbvm/grunt-properties-to-json#info=devDependencies)
+# grunt-properties-to-json 
+[![Build Status](https://travis-ci.org/jcbvm/grunt-properties-to-json.svg?branch=master)](https://travis-ci.org/jcbvm/grunt-properties-to-json) [![dependency Status](https://david-dm.org/jcbvm/grunt-properties-to-json/status.svg)](https://david-dm.org/jcbvm/grunt-properties-to-json#info=dependencies) [![devDependency Status](https://david-dm.org/jcbvm/grunt-properties-to-json/dev-status.svg)](https://david-dm.org/jcbvm/grunt-properties-to-json#info=devDependencies)
 
 A grunt plugin for converting java property files to JSON files.
 
@@ -40,6 +41,24 @@ grunt.initConfig({
                 src: ['path/to/properties/files', 'another/path/to/properties/files'],
                 dest: 'tmp'
             }]
+        }
+    }
+});
+```
+
+If you want keys in the property files to be splitted you can pass the `splitKeysBy` option (a string or regular expression). With this option the keys in the property files will be splitted by the given string or regular expression and used as nested keys in the JSON output.
+
+```js
+grunt.initConfig({
+    properties_to_json: {
+        main: {
+            files: [{
+                src: ['path/to/properties/files', 'another/path/to/properties/files'],
+                dest: 'tmp'
+            }],
+            options: {
+                splitKeysBy: '.'
+            }
         }
     }
 });
