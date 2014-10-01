@@ -1,7 +1,7 @@
 /**
  * grunt-properties-to-json
  * 
- * @version 0.1.0
+ * @version 0.2.0
  * @copyright 2014 Jacob van Mourik
  * @license MIT
  */
@@ -9,32 +9,24 @@
 'use strict';
 
 module.exports = function(grunt) {
-    var unescapeUnicode = function(str) {
-        return str.replace(/\\u(.{4})/ig, function(match,code) {
-            return String.fromCharCode(parseInt(code,16)); 
-        });
-    };
+    var parser = require('properties-parser');
     
-    var propertiesToJSON = function(properties) {
-        var result = {},
-            lines = properties.trim().split(/\s*\n\s*/);
-        for (var i = 0; i < lines.length; i++) {
-            if (!lines[i]) { continue; }
-            var parent = result,
-                index = lines[i].indexOf('='),
-                keys = lines[i].substring(0,index).trim().split('.'),
-                value = lines[i].substring(index+1).trim();
+    var splitKeysBy = function(obj, splitBy) {
+        var keys, value, parent, result = {};
+        for (var key in obj) {
+            keys = key.split(splitBy);
+            value = obj[key];
+            parent = result;
             for (var j = 0; j < keys.length-1; j++) {
                 parent = parent[keys[j]] = parent[keys[j]] || {};
             }
-            parent[keys[keys.length-1]] = unescapeUnicode(value);
+            parent[keys[keys.length-1]] = value;
         }
-        return JSON.stringify(result);
+        return result;
     };
     
     grunt.registerMultiTask('properties_to_json', 'Converts java property files to JSON files.', function() {
-        var dest, data;
-        
+        var dest, data, options = this.options();
         this.files.forEach(function(f) {
             f.src.forEach(function (src) {
                 if (src.substr(-11) !== '.properties') {
@@ -54,8 +46,11 @@ module.exports = function(grunt) {
                     dest = src;
                 }
                 dest = dest.replace('.properties','.json');
-                data = grunt.file.read(src);
-                grunt.file.write(dest, propertiesToJSON(data));
+                data = parser.read(src);
+                if (options.splitKeysBy) {
+                    data = splitKeysBy(data, options.splitKeysBy);
+                }
+                grunt.file.write(dest, JSON.stringify(data), { encoding: 'utf8' });
                 grunt.log.writeln('File "' + dest + '" created.');
             });
         });

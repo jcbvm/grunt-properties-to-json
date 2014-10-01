@@ -16,11 +16,29 @@ module.exports = function(grunt) {
             tests: ['tmp']
         },
         properties_to_json: {
-            test: {
+            default: {
                 files: [{
-                    src: ['test/fixtures/*'],
+                    src: ['test/fixtures/default.properties'],
                     dest: 'tmp'
                 }]
+            },
+            dots: {
+                files: [{
+                    src: ['test/fixtures/dots.properties'],
+                    dest: 'tmp'
+                }],
+                options: {
+                    splitKeysBy: '.'
+                }
+            },
+            underscores: {
+                files: [{
+                    src: ['test/fixtures/underscores.properties'],
+                    dest: 'tmp'
+                }],
+                options: {
+                    splitKeysBy: /_/
+                }
             }
         },
         nodeunit: {
