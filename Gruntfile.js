@@ -42,22 +42,22 @@ module.exports = function(grunt) {
             },
             exclude: {
                 files: [{
-                    src: ['test/fixtures/excludeInclude.properties'],
+                    src: ['test/fixtures/exclude.properties'],
                     dest: 'tmp'
                 }],
                 options: {
                     splitKeysBy: '.',
                     exclude: 'this'
-            }
-        },
+                }
+            },
             include: {
                 files: [{
-                    src: ['test/fixtures/excludeInclude.properties'],
+                    src: ['test/fixtures/include.properties'],
                     dest: 'tmp'
                 }],
                 options: {
                     splitKeysBy: '.',
-                    include: 'that'
+                    include: 'this'
                 }
             },
             excludeInclude: {

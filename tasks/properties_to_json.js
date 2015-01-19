@@ -26,17 +26,23 @@ module.exports = function(grunt) {
     };
     
     var exclude = function(obj, excludes) {
-        var exclusions = [].concat(excludes);
-        return obj.filter(function(element) {
-            return exclusions.indexOf(element) < 0;
-        });
+        var exclusions = [].concat(excludes), result = {}, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key) && exclusions.indexOf(key) < 0) {
+                result[key] = obj[key];
+            }
+        }
+        return result;
     };
 
     var include = function(obj, includes) {
-        var inclusions = [].concat(includes);
-        return obj.filter(function(element) {
-            return inclusions.indexOf(element) >= 0;
-        });
+        var inclusions = [].concat(includes), result = {}, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key) && inclusions.indexOf(key) >= 0) {
+                result[key] = obj[key];
+            }
+        }
+        return result;
     };
 
     grunt.registerMultiTask('properties_to_json', 'Converts java property files to JSON files.', function() {
