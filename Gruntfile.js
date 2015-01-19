@@ -39,6 +39,37 @@ module.exports = function(grunt) {
                 options: {
                     splitKeysBy: /_/
                 }
+            },
+            exclude: {
+                files: [{
+                    src: ['test/fixtures/exclude.properties'],
+                    dest: 'tmp'
+                }],
+                options: {
+                    splitKeysBy: '.',
+                    exclude: 'this'
+                }
+            },
+            include: {
+                files: [{
+                    src: ['test/fixtures/include.properties'],
+                    dest: 'tmp'
+                }],
+                options: {
+                    splitKeysBy: '.',
+                    include: 'this'
+                }
+            },
+            excludeInclude: {
+                files: [{
+                    src: ['test/fixtures/excludeInclude.properties'],
+                    dest: 'tmp'
+                }],
+                options: {
+                    splitKeysBy: '.',
+                    exclude: 'this',
+                    include: 'that'
+                }
             }
         },
         nodeunit: {

@@ -25,6 +25,26 @@ module.exports = function(grunt) {
         return result;
     };
     
+    var exclude = function(obj, excludes) {
+        var exclusions = [].concat(excludes), result = {}, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key) && exclusions.indexOf(key) < 0) {
+                result[key] = obj[key];
+            }
+        }
+        return result;
+    };
+
+    var include = function(obj, includes) {
+        var inclusions = [].concat(includes), result = {}, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key) && inclusions.indexOf(key) >= 0) {
+                result[key] = obj[key];
+            }
+        }
+        return result;
+    };
+
     grunt.registerMultiTask('properties_to_json', 'Converts java property files to JSON files.', function() {
         var dest, data, options = this.options();
         this.files.forEach(function(f) {
@@ -49,6 +69,12 @@ module.exports = function(grunt) {
                 data = parser.read(src);
                 if (options.splitKeysBy) {
                     data = splitKeysBy(data, options.splitKeysBy);
+                    if (options.exclude) {
+                        data = exclude(data, options.exclude);
+                }
+                    if (options.include) {
+                        data = include(data, options.include);
+                    }
                 }
                 grunt.file.write(dest, JSON.stringify(data), { encoding: 'utf8' });
                 grunt.log.writeln('File "' + dest + '" created.');
