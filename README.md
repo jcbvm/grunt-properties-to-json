@@ -64,6 +64,25 @@ grunt.initConfig({
 });
 ```
 
+If you split by key, you can also explicitly `include` and/or `exclude` top-level namespaces, effectively whitelisting or blacklisting. For each option, provide a string or array of strings; if both options are used, exclusions are applied first, then inclusions.
+
+```js
+grunt.initConfig({
+    properties_to_json: {
+        main: {
+            files: [{
+                src: ['path/to/properties/files', 'another/path/to/properties/files'],
+                dest: 'tmp'
+            }],
+            options: {
+                splitKeysBy: '.',
+                exclude: ['message', 'label']
+            }
+        }
+    }
+});
+```
+
 ## License
 
 This project is released under the MIT license.
