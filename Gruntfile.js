@@ -1,79 +1,69 @@
-'use strict';
-
 module.exports = function(grunt) {
     grunt.initConfig({
         jshint: {
-            all: [
-                'Gruntfile.js',
-                'tasks/*.js',
-                '<%= nodeunit.tests %>'
-            ],
+            all: ['Gruntfile.js', 'tasks/*.js', '<%= nodeunit.tests %>'],
             options: {
                 jshintrc: '.jshintrc'
             }
         },
         clean: {
-            tests: ['tmp']
+            tests: 'tmp'
+        },
+        nodeunit: {
+            tests: 'test/*_test.js'
         },
         properties_to_json: {
             default: {
-                files: [{
-                    src: ['test/fixtures/default.properties'],
-                    dest: 'tmp'
-                }]
+                src: 'test/fixtures/default.properties',
+                dest: 'tmp'
             },
             dots: {
-                files: [{
-                    src: ['test/fixtures/dots.properties'],
-                    dest: 'tmp'
-                }],
+                src: 'test/fixtures/dots.properties',
+                dest: 'tmp',
                 options: {
                     splitKeysBy: '.'
                 }
             },
             underscores: {
-                files: [{
-                    src: ['test/fixtures/underscores.properties'],
-                    dest: 'tmp'
-                }],
+                src: 'test/fixtures/underscores.properties',
+                dest: 'tmp',
                 options: {
                     splitKeysBy: /_/
                 }
             },
             exclude: {
-                files: [{
-                    src: ['test/fixtures/exclude.properties'],
-                    dest: 'tmp'
-                }],
+                src: 'test/fixtures/exclude.properties',
+                dest: 'tmp',
                 options: {
                     splitKeysBy: '.',
                     exclude: 'this'
                 }
             },
             include: {
-                files: [{
-                    src: ['test/fixtures/include.properties'],
-                    dest: 'tmp'
-                }],
+                src: 'test/fixtures/include.properties',
+                dest: 'tmp',
                 options: {
                     splitKeysBy: '.',
                     include: 'this'
                 }
             },
             excludeInclude: {
-                files: [{
-                    src: ['test/fixtures/excludeInclude.properties'],
-                    dest: 'tmp'
-                }],
+                src: 'test/fixtures/excludeInclude.properties',
+                dest: 'tmp',
                 options: {
                     splitKeysBy: '.',
                     exclude: 'this',
                     include: 'that'
                 }
+            },
+            merge: {
+                src: 'test/fixtures/merge*.properties',
+                dest: 'tmp/merged.json',
+                options: {
+                    splitKeysBy: '.',
+                    merge: true
+                }
             }
-        },
-        nodeunit: {
-            tests: ['test/*_test.js']
         }
     });
     

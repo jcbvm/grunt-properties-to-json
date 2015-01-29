@@ -9,76 +9,89 @@
 'use strict';
 
 module.exports = function(grunt) {
-    var parser = require('properties-parser');
-    
+    var parser = require('properties-parser'),
+        _ = require('lodash');
+
     var splitKeysBy = function(obj, splitBy) {
-        var keys, value, parent, result = {};
-        for (var key in obj) {
+        var keys, parent, result = {};
+        _.forEach(obj, function(val, key) {
             keys = key.split(splitBy);
-            value = obj[key];
             parent = result;
-            for (var j = 0; j < keys.length-1; j++) {
-                parent = parent[keys[j]] = parent[keys[j]] || {};
-            }
-            parent[keys[keys.length-1]] = value;
-        }
+            keys.forEach(function(k, i) {
+                 if (i === keys.length-1) {
+                     parent[k] = val;
+                 } else {
+                     parent = parent[k] = parent[k] || {};
+                 }
+            });
+        });
         return result;
     };
-    
+
     var exclude = function(obj, excludes) {
-        var exclusions = [].concat(excludes), result = {}, key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key) && exclusions.indexOf(key) < 0) {
-                result[key] = obj[key];
-            }
-        }
-        return result;
+        var exclusions = [].concat(excludes);
+        return _.omit(obj, function(val, key) {
+            return _.contains(exclusions, key);
+        });
     };
 
     var include = function(obj, includes) {
-        var inclusions = [].concat(includes), result = {}, key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key) && inclusions.indexOf(key) >= 0) {
-                result[key] = obj[key];
-            }
-        }
-        return result;
+        var inclusions = [].concat(includes);
+        return _.pick(obj, function(val, key) {
+            return _.contains(inclusions, key);
+        });
+    };
+
+    var writeFile = function(data, dest) {
+        grunt.file.write(dest, JSON.stringify(data), { encoding: 'utf8' });
+        grunt.log.writeln('File "' + dest + '" created.');
     };
 
     grunt.registerMultiTask('properties_to_json', 'Converts java property files to JSON files.', function() {
-        var dest, data, options = this.options();
+        var dest, data, dataList, options = this.options();
+
         this.files.forEach(function(f) {
-            f.src.forEach(function (src) {
+            if (options.merge) {
+                if (!f.dest) {
+                    return grunt.log.warn('You are trying to merge but no destination file is defined.');
+                } else if (grunt.file.isDir(f.dest)) {
+                    return grunt.log.warn('Destination "' + f.dest + '" should be a file.');
+                }
+            } else if (grunt.file.isFile(f.dest)) {
+                return grunt.log.warn('Destination "' + f.dest + '" should be a directory.');
+            }
+
+            dataList = [];
+
+            f.src.forEach(function(src) {
                 if (src.substr(-11) !== '.properties') {
                     return;
                 }
                 if (!grunt.file.exists(src)) {
-                    grunt.log.warn('Source file "' + src + '" not found.');
-                    return false;
+                    return grunt.log.warn('Source file "' + src + '" not found.');
                 }
-                if (f.dest && grunt.file.exists(f.dest) && grunt.file.isFile(f.dest)) {
-                    grunt.log.warn('Destination "' + f.dest + '" is not a directory.');
-                    return false;
-                }
-                if (f.dest) {
-                    dest = f.dest + (f.dest.substr(-1) !== '/' ? '/' : '') + src.match(/\/([^/]*)$/)[1];
-                } else {
-                    dest = src;
-                }
-                dest = dest.replace('.properties','.json');
                 data = parser.read(src);
                 if (options.splitKeysBy) {
                     data = splitKeysBy(data, options.splitKeysBy);
-                    if (options.exclude) {
-                        data = exclude(data, options.exclude);
                 }
-                    if (options.include) {
-                        data = include(data, options.include);
-                    }
+                if (options.exclude) {
+                    data = exclude(data, options.exclude);
                 }
-                grunt.file.write(dest, JSON.stringify(data), { encoding: 'utf8' });
-                grunt.log.writeln('File "' + dest + '" created.');
+                if (options.include) {
+                    data = include(data, options.include);
+                }
+                if (options.merge) {
+                    dataList.push(data);
+                } else {
+                    dest = f.dest ? (f.dest + (f.dest.substr(-1) !== '/' ? '/' : '') + src.match(/\/([^/]*)$/)[1]) : src;
+                    dest = dest.replace('.properties','.json');
+                    writeFile(data, dest);
+                }
             });
+
+            if (options.merge) {
+                writeFile(_.merge.apply(null,dataList), f.dest);
+            }
         });
     });
 };
