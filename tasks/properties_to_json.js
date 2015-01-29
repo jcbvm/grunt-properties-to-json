@@ -1,8 +1,8 @@
 /**
  * grunt-properties-to-json
  * 
- * @version 0.2.0
- * @copyright 2014 Jacob van Mourik
+ * @version 0.4.0
+ * @copyright 2014-2015 Jacob van Mourik
  * @license MIT
  */
 
