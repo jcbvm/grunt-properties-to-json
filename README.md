@@ -37,10 +37,8 @@ It is also possible to define a destination folder for the generated json files:
 grunt.initConfig({
     properties_to_json: {
         main: {
-            files: [{
-                src: ['path/to/properties/files', 'another/path/to/properties/files'],
-                dest: 'tmp'
-            }]
+            src: ['path/to/properties/files', 'another/path/to/properties/files'],
+            dest: 'tmp'
         }
     }
 });
@@ -52,10 +50,8 @@ If you want keys in the property files to be splitted you can pass the `splitKey
 grunt.initConfig({
     properties_to_json: {
         main: {
-            files: [{
-                src: ['path/to/properties/files', 'another/path/to/properties/files'],
-                dest: 'tmp'
-            }],
+            src: ['path/to/properties/files', 'another/path/to/properties/files'],
+            dest: 'tmp',
             options: {
                 splitKeysBy: '.'
             }
@@ -64,19 +60,34 @@ grunt.initConfig({
 });
 ```
 
-If you split by key, you can also explicitly `include` and/or `exclude` top-level namespaces, effectively whitelisting or blacklisting. For each option, provide a string or array of strings; if both options are used, exclusions are applied first, then inclusions.
+You can also explicitly `include` and/or `exclude` top-level namespaces, effectively whitelisting or blacklisting. For each option, provide a string or array of strings; if both options are used, exclusions are applied first, then inclusions.
 
 ```js
 grunt.initConfig({
     properties_to_json: {
         main: {
-            files: [{
-                src: ['path/to/properties/files', 'another/path/to/properties/files'],
-                dest: 'tmp'
-            }],
+            src: ['path/to/properties/files', 'another/path/to/properties/files'],
+            dest: 'tmp',
             options: {
                 splitKeysBy: '.',
                 exclude: ['message', 'label']
+            }
+        }
+    }
+});
+```
+
+If you want multiple properties files to be merged to one JSON file, you can set the `merge` option to `true`. The destination should be a file in which the merged JSON output will be written (the file will be automaticly created if it does not exist).
+
+```js
+grunt.initConfig({
+    properties_to_json: {
+        main: {
+            src: ['path/to/properties/files', 'another/path/to/properties/files'],
+            dest: 'tmp.json',
+            options: {
+                splitKeysBy: '.',
+                merge: true
             }
         }
     }
