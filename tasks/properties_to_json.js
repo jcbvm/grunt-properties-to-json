@@ -32,7 +32,7 @@ module.exports = function(grunt) {
         return _.transform(obj, function(result, val, key) {
             var hasMatch = hasRegMatch(regexps, key);
             if ((hasMatch && include) || (!hasMatch && !include)) {
-                result[key] = deep && _.isPlainObject(val) ? transform(val,regexps,include,deep) : val;
+                result[key] = deep && _.isPlainObject(val) ? filter(val,regexps,include,deep) : val;
             }
         },{});
     };
