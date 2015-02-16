@@ -28,17 +28,25 @@ module.exports = function(grunt) {
         return result;
     };
 
-    var exclude = function(obj, excludes) {
-        var exclusions = [].concat(excludes);
-        return _.omit(obj, function(val, key) {
-            return _.contains(exclusions, key);
+    var filter = function(obj, regexps, include, deep) {
+        return _.transform(obj, function(result, val, key) {
+            var hasMatch = hasRegMatch(regexps, key);
+            if ((hasMatch && include) || (!hasMatch && !include)) {
+                result[key] = deep && _.isPlainObject(val) ? transform(val,regexps,include,deep) : val;
+            }
+        },{});
+    };
+
+    var toRegExps = function(value) {
+        value = [].concat(value);
+        return value.map(function(val) {
+            return _.isRegExp(val) ? val : new RegExp(val);
         });
     };
 
-    var include = function(obj, includes) {
-        var inclusions = [].concat(includes);
-        return _.pick(obj, function(val, key) {
-            return _.contains(inclusions, key);
+    var hasRegMatch = function(regexps, value) {
+        return regexps.some(function(regexp) {
+            return regexp.test(value);
         });
     };
 
@@ -75,15 +83,15 @@ module.exports = function(grunt) {
                     data = splitKeysBy(data, options.splitKeysBy);
                 }
                 if (options.exclude) {
-                    data = exclude(data, options.exclude);
+                    data = filter(data, toRegExps(options.exclude), false, !!options.deepExclude);
                 }
                 if (options.include) {
-                    data = include(data, options.include);
+                    data = filter(data, toRegExps(options.include), true, !!options.deepInclude);
                 }
                 if (options.merge) {
                     dataList.push(data);
                 } else {
-                    dest = f.dest ? (f.dest + (f.dest.substr(-1) !== '/' ? '/' : '') + src.match(/\/([^/]*)$/)[1]) : src;
+                    dest = f.dest ? f.dest + (_.endsWith(f.dest,'/') ? '' : '/') + src.replace(/.*\//,'') : src;
                     dest = dest.replace('.properties','.json');
                     writeFile(data, dest);
                 }
