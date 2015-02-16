@@ -4,7 +4,7 @@ var readFile = function(path) {
     return grunt.file.read(path).replace(/\r\n|\r|\n/g,'');
 };
 
-exports.properties_to_json = {
+exports.tests = {
     default: function(test) {
         test.expect(1);
         var actual = readFile('tmp/default.json');

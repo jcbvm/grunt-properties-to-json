@@ -10,9 +10,9 @@ module.exports = function(grunt) {
             tests: 'tmp'
         },
         nodeunit: {
-            tests: 'test/*_test.js'
+            tests: 'test/properties-to-json.js'
         },
-        properties_to_json: {
+        propertiesToJSON: {
             default: {
                 src: 'test/fixtures/default.properties',
                 dest: 'tmp'
@@ -73,6 +73,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
     
-    grunt.registerTask('test', ['clean', 'properties_to_json', 'nodeunit']);
+    grunt.registerTask('test', ['clean', 'propertiesToJSON', 'nodeunit']);
     grunt.registerTask('default', ['jshint', 'test']);
 };

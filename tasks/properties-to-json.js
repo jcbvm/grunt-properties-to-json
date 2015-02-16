@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         grunt.log.writeln('File "' + dest + '" created.');
     };
 
-    grunt.registerMultiTask('properties_to_json', 'Converts java property files to JSON files.', function() {
+    var propertiesToJSON = function() {
         var dest, data, dataList, options = this.options();
 
         this.files.forEach(function(f) {
@@ -101,5 +101,13 @@ module.exports = function(grunt) {
                 writeFile(_.merge.apply(null,dataList), f.dest);
             }
         });
+    };
+
+    grunt.registerMultiTask('propertiesToJSON', 'Converts java property files to JSON files.', propertiesToJSON);
+
+    // Deprecate old task name
+    grunt.registerMultiTask('properties_to_json', 'Converts java property files to JSON files.', function() {
+        grunt.log.warn('The "properties_to_json" task name is deprecated. Please use "propertiesToJSON" instead.');
+        propertiesToJSON.apply(this, arguments);
     });
 };
