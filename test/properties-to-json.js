@@ -29,21 +29,35 @@ exports.tests = {
     exclude: function(test) {
         test.expect(1);
         var actual = readFile('tmp/exclude.json');
-        var expected = readFile('test/expected/exclude.json');
+        var expected = readFile('test/expected/filterExclude.json');
         test.equal(actual, expected, 'Should correctly exclude the "this" namespace, but include "that" and "there".');
+        test.done();
+    },
+    excludeDeep: function(test) {
+        test.expect(1);
+        var actual = readFile('tmp/excludeDeep.json');
+        var expected = readFile('test/expected/filterDeep.json');
+        test.equal(actual, expected, 'Should correctly exclude the (deep) "there", "another" and "two" namespaces.');
         test.done();
     },
     include: function(test) {
         test.expect(1);
         var actual = readFile('tmp/include.json');
-        var expected = readFile('test/expected/include.json');
+        var expected = readFile('test/expected/filterInclude.json');
         test.equal(actual, expected, 'Should correctly include the "this" namespace, but exclude "that" and "there".');
         test.done();        
+    },
+    includeDeep: function(test) {
+        test.expect(1);
+        var actual = readFile('tmp/includeDeep.json');
+        var expected = readFile('test/expected/filterDeep.json');
+        test.equal(actual, expected, 'Should correctly include the (deep) "this", "that", "is", "test" and "one" namespaces.');
+        test.done();
     },
     excludeInclude: function(test) {
         test.expect(1);
         var actual = readFile('tmp/excludeInclude.json');
-        var expected = readFile('test/expected/excludeInclude.json');
+        var expected = readFile('test/expected/filterExcludeInclude.json');
         test.equal(actual, expected, 'Should correctly exclude the "this" namespace, include "that", and exclude "there".');
         test.done();
     },

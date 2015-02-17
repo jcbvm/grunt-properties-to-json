@@ -39,12 +39,30 @@ module.exports = function(grunt) {
                     exclude: 'this'
                 }
             },
+            excludeDeep: {
+                src: 'test/fixtures/excludeDeep.properties',
+                dest: 'tmp',
+                options: {
+                    splitKeysBy: '.',
+                    exclude: ['there',/anot[a-z]{3}/,'two'],
+                    deepExclude: true
+                }
+            },
             include: {
                 src: 'test/fixtures/include.properties',
                 dest: 'tmp',
                 options: {
                     splitKeysBy: '.',
                     include: 'this'
+                }
+            },
+            includeDeep: {
+                src: 'test/fixtures/includeDeep.properties',
+                dest: 'tmp',
+                options: {
+                    splitKeysBy: '.',
+                    include: [/(this|that)/,'is','test','one'],
+                    deepInclude: true
                 }
             },
             excludeInclude: {
