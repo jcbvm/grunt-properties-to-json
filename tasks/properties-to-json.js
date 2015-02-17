@@ -1,9 +1,9 @@
-/**
+/*
  * grunt-properties-to-json
+ * http://gruntjs.com/
  * 
- * @version 0.4.0
- * @copyright 2014-2015 Jacob van Mourik
- * @license MIT
+ * Copyright (c) 2014-2015 Jacob van Mourik, contributors
+ * Licensed under the MIT license.
  */
 
 'use strict';
