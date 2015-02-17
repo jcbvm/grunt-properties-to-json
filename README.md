@@ -84,7 +84,7 @@ grunt.initConfig({
 
 #### Merge multiple property files to one JSON file
 
-If you want multiple property files to be merged to one JSON file, you can set the `merge` option to `true`. The destination should be a file in which the merged JSON output will be written.
+If you want multiple property files to be merged to one JSON file, you can set the `merge` option to `true`. The destination should be a file in which the merged JSON output will be written. You can combine this option with the options mentioned above (the merge will be applied as last operation, so splitted keys will also be merged).
 
 ```js
 grunt.initConfig({
