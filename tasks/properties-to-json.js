@@ -61,12 +61,12 @@ module.exports = function(grunt) {
         this.files.forEach(function(f) {
             if (options.merge) {
                 if (!f.dest) {
-                    return grunt.log.warn('You are trying to merge but no destination file is defined.');
+                    return grunt.log.warn('Task skipped, no destination file is defined.');
                 } else if (grunt.file.isDir(f.dest)) {
-                    return grunt.log.warn('Destination "' + f.dest + '" should be a file.');
+                    return grunt.log.warn('Task skipped, destination "' + f.dest + '" should be a file but is a directory.');
                 }
             } else if (grunt.file.isFile(f.dest)) {
-                return grunt.log.warn('Destination "' + f.dest + '" should be a directory.');
+                return grunt.log.warn('Task skipped, destination "' + f.dest + '" should be a directory but is a file.');
             }
 
             dataList = [];
