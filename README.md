@@ -44,7 +44,9 @@ grunt.initConfig({
 });
 ```
 
-If you want keys in the property files to be splitted you can pass the `splitKeysBy` option (a string or regular expression). With this option the keys in the property files will be splitted by the given string or regular expression and used as nested keys in the JSON output.
+#### Split keys by a separator
+
+You can split keys in the property files by using the `splitKeysBy` option (a string or regular expression). With this option the keys in the property files will be splitted by the given string or regular expression and used as nested keys in the JSON output.
 
 ```js
 grunt.initConfig({
@@ -60,7 +62,9 @@ grunt.initConfig({
 });
 ```
 
-You can also explicitly `include` and/or `exclude` top-level namespaces, effectively whitelisting or blacklisting. For each option, provide a string or array of strings; if both options are used, exclusions are applied first, then inclusions.
+#### Include and/or exclude keys
+
+You can explicitly `include` and/or `exclude` namespaces, effectively whitelisting or blacklisting. For each option, provide a string, regular expression or an array of strings and regular expressions. If both options are used, exclusions are applied first, then inclusions. If you combine this option with `splitKeysBy` you can include and/or exclude nested keys by respectively setting the `deepInclude` or `deepExclude` option to `true`.
 
 ```js
 grunt.initConfig({
@@ -70,14 +74,17 @@ grunt.initConfig({
             dest: 'tmp',
             options: {
                 splitKeysBy: '.',
-                exclude: ['message', 'label']
+                exclude: ['message', /label$/],
+                deepExclude: true
             }
         }
     }
 });
 ```
 
-If you want multiple properties files to be merged to one JSON file, you can set the `merge` option to `true`. The destination should be a file in which the merged JSON output will be written (the file will be automaticly created if it does not exist).
+#### Merge multiple property files to one JSON file
+
+If you want multiple property files to be merged to one JSON file, you can set the `merge` option to `true`. The destination should be a file in which the merged JSON output will be written.
 
 ```js
 grunt.initConfig({
@@ -86,7 +93,6 @@ grunt.initConfig({
             src: ['path/to/properties/files', 'another/path/to/properties/files'],
             dest: 'tmp.json',
             options: {
-                splitKeysBy: '.',
                 merge: true
             }
         }
