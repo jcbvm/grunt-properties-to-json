@@ -23,7 +23,7 @@ With the following config, each `.properties` file in src will be converted to j
 
 ```js
 grunt.initConfig({
-    properties_to_json: {
+    propertiesToJSON: {
         main: {
             src: ['path/to/properties/files', 'another/path/to/properties/files']
         }
@@ -35,7 +35,7 @@ It is also possible to define a destination folder for the generated json files:
 
 ```js
 grunt.initConfig({
-    properties_to_json: {
+    propertiesToJSON: {
         main: {
             src: ['path/to/properties/files', 'another/path/to/properties/files'],
             dest: 'tmp'
@@ -50,7 +50,7 @@ You can split keys in the property files by using the `splitKeysBy` option (a st
 
 ```js
 grunt.initConfig({
-    properties_to_json: {
+    propertiesToJSON: {
         main: {
             src: ['path/to/properties/files', 'another/path/to/properties/files'],
             dest: 'tmp',
@@ -68,7 +68,7 @@ You can explicitly `include` and/or `exclude` namespaces, effectively whitelisti
 
 ```js
 grunt.initConfig({
-    properties_to_json: {
+    propertiesToJSON: {
         main: {
             src: ['path/to/properties/files', 'another/path/to/properties/files'],
             dest: 'tmp',
@@ -88,7 +88,7 @@ If you want multiple property files to be merged to one JSON file, you can set t
 
 ```js
 grunt.initConfig({
-    properties_to_json: {
+    propertiesToJSON: {
         main: {
             src: ['path/to/properties/files', 'another/path/to/properties/files'],
             dest: 'tmp.json',
