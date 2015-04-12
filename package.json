@@ -1,7 +1,7 @@
 {
   "name": "grunt-properties-to-json",
   "description": "Converts java property files to JSON files.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "license": "MIT",
   "author": "Jacob van Mourik",
   "repository": {

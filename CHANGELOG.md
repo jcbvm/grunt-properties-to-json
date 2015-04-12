@@ -1,5 +1,10 @@
 # grunt-properties-to-json changelog
 
+### 0.5.1 (April 12, 2015)
+
+* [BUGFIX] Fixed issue where `f.dest` was used while being undefined, see [#6](https://github.com/jcbvm/grunt-properties-to-json/issues/6).
+* [IMPROVEMENT] Use path module for path manipulations.
+
 ### 0.5.0 (Februari 18, 2015)
 
 * [FEATURE] Added support for deep includes/excludes.
