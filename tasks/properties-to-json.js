@@ -66,7 +66,7 @@ module.exports = function(grunt) {
                 } else if (grunt.file.isDir(f.dest)) {
                     return grunt.log.warn('Task skipped, destination "' + f.dest + '" should be a file but is a directory.');
                 }
-            } else if (grunt.file.isFile(f.dest)) {
+            } else if (f.dest && grunt.file.isFile(f.dest)) {
                 return grunt.log.warn('Task skipped, destination "' + f.dest + '" should be a directory but is a file.');
             }
 
