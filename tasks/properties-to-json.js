@@ -10,7 +10,8 @@
 
 module.exports = function(grunt) {
     var parser = require('properties-parser'),
-        _ = require('lodash');
+        _ = require('lodash'),
+        path = require('path');
 
     var splitKeysBy = function(obj, splitBy) {
         var keys, parent, result = {};
@@ -91,7 +92,7 @@ module.exports = function(grunt) {
                 if (options.merge) {
                     dataList.push(data);
                 } else {
-                    dest = f.dest ? f.dest + (_.endsWith(f.dest,'/') ? '' : '/') + src.replace(/.*\//,'') : src;
+                    dest = f.dest ? path.join(f.dest, path.basename(src)) : src;
                     dest = dest.replace('.properties','.json');
                     writeFile(data, dest);
                 }
