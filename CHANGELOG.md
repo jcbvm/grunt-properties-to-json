@@ -1,5 +1,9 @@
 # grunt-properties-to-json changelog
 
+### 0.6.0 (April 9, 2016)
+
+* Updated dependencies.
+
 ### 0.5.1 (April 12, 2015)
 
 * [BUGFIX] Fixed issue where `f.dest` was used while being undefined, see [#6](https://github.com/jcbvm/grunt-properties-to-json/issues/6).
