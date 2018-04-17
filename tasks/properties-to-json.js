@@ -73,7 +73,7 @@ module.exports = function(grunt) {
             dataList = [];
 
             f.src.forEach(function(src) {
-                if (src.substr(-11) !== '.properties') {
+                if (!options.ignoreFileExtension && src.substr(-11) !== '.properties') {
                     return;
                 }
                 if (!grunt.file.exists(src)) {
