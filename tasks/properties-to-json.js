@@ -73,7 +73,7 @@ module.exports = function(grunt) {
             dataList = [];
 
             f.src.forEach(function(src) {
-                if (src.substr(-11) !== '.properties') {
+                if (!options.ignoreFileExtension && src.substr(-11) !== '.properties') {
                     return;
                 }
                 if (!grunt.file.exists(src)) {
@@ -93,7 +93,11 @@ module.exports = function(grunt) {
                     dataList.push(data);
                 } else {
                     dest = f.dest ? path.join(f.dest, path.basename(src)) : src;
-                    dest = dest.replace('.properties','.json');
+                    if (src.substr(-11) !== '.properties') {
+                        dest += '.json';
+                    } else {
+                        dest = dest.replace('.properties','.json');
+                    }
                     writeFile(data, dest);
                 }
             });
