@@ -93,7 +93,11 @@ module.exports = function(grunt) {
                     dataList.push(data);
                 } else {
                     dest = f.dest ? path.join(f.dest, path.basename(src)) : src;
-                    dest = dest.replace('.properties','.json');
+                    if (options.ignoreFileExtension) {
+                        dest += '.json';
+                    } else {
+                        dest = dest.replace('.properties','.json');
+                    }
                     writeFile(data, dest);
                 }
             });
