@@ -93,7 +93,7 @@ module.exports = function(grunt) {
                     dataList.push(data);
                 } else {
                     dest = f.dest ? path.join(f.dest, path.basename(src)) : src;
-                    if (options.ignoreFileExtension) {
+                    if (src.substr(-11) !== '.properties') {
                         dest += '.json';
                     } else {
                         dest = dest.replace('.properties','.json');
