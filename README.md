@@ -1,3 +1,5 @@
+THIS PROJECT IS NO LONGER MAINTAINED
+
 # grunt-properties-to-json 
 [![Build Status](https://travis-ci.org/jcbvm/grunt-properties-to-json.svg?branch=master)](https://travis-ci.org/jcbvm/grunt-properties-to-json) [![dependency Status](https://david-dm.org/jcbvm/grunt-properties-to-json/status.svg)](https://david-dm.org/jcbvm/grunt-properties-to-json#info=dependencies) [![devDependency Status](https://david-dm.org/jcbvm/grunt-properties-to-json/dev-status.svg)](https://david-dm.org/jcbvm/grunt-properties-to-json#info=devDependencies)
 
