@@ -102,6 +102,23 @@ grunt.initConfig({
 });
 ```
 
+#### Ignore file extension
+
+By default, only files with the `.properties` file extension are processed. This is helpful if there are different file types in a directory and only the property files should be processed. You can set the option `ignoreFileExtension` to enable processing property files with another extension.
+
+```js
+grunt.initConfig({
+    propertiesToJSON: {
+        main: {
+            src: ['path/to/properties/properties.with.other.extension'],
+            options: {
+                ignoreFileExtension: true
+            }
+        }
+    }
+});
+```
+
 ## License
 
 This project is released under the MIT license.
